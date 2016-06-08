@@ -1,4 +1,9 @@
 #!/usr/bin/env bash
 # bin/compile <build-dir> <cache-dir> <env-dir>
 
+export NPM_CONFIG_PRODUCTION=${NPM_CONFIG_PRODUCTION:-true}
+export NPM_CONFIG_LOGLEVEL=${NPM_CONFIG_LOGLEVEL:-error}
+export NODE_MODULES_CACHE=${NODE_MODULES_CACHE:-true}
+export NODE_ENV=${NODE_ENV:-production}
+
 npm install
