@@ -7,7 +7,7 @@ BUILD_DIR=${1:-}
 CACHE_DIR=${2:-}
 ENV_DIR=${3:-}
 BP_DIR=$(cd $(dirname ${0:-}); cd ..; pwd)
-$BP_DIR/compile-extensions/bin/check_stack_support
+# $BP_DIR/compile-extensions/bin/check_stack_support
 
 mkdir -p "$BUILD_DIR/.heroku/node/"
 cd $BUILD_DIR
@@ -136,6 +136,16 @@ install_node_modules() {
     npm install --unsafe-perm --userconfig $build_dir/.npmrc 2>&1
   else
     echo "Skipping (no package.json)"
+  fi
+}
+
+read_json() {
+  local file=$1
+  local key=$2
+  if test -f $file; then
+    cat $file | $JQ --raw-output "$key // \"\"" || return 1
+  else
+    echo ""
   fi
 }
 
