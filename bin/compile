@@ -139,6 +139,16 @@ install_node_modules() {
   fi
 }
 
+install_bins() {
+  local node_engine=$(read_json "$BUILD_DIR/package.json" ".engines.node")
+  local npm_engine=$(read_json "$BUILD_DIR/package.json" ".engines.npm")
+
+  install_nodejs "$node_engine" "$BUILD_DIR/.heroku/node"
+  install_npm "$npm_engine" "$BUILD_DIR/.heroku/node"
+}
+
+install_bins
+
 rebuild_node_modules() {
   local build_dir=${1:-}
 
