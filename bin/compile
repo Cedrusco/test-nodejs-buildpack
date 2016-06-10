@@ -10,14 +10,17 @@ BUILD_DIR=${1:-}
 CACHE_DIR=${2:-}
 ENV_DIR=${3:-}
 BP_DIR=$(cd $(dirname ${0:-}); cd ..; pwd)
+$BP_DIR/compile-extensions/bin/check_stack_support
 
-# mkdir -p "$BUILD_DIR/.heroku/node/"
-# cd $BUILD_DIR
-# export PATH="$BUILD_DIR/.heroku/node/bin":$PATH
+mkdir -p "$BUILD_DIR/.heroku/node/"
+cd $BUILD_DIR
+export PATH="$BUILD_DIR/.heroku/node/bin":$PATH
 
 # CF Common
 export BUILDPACK_PATH=$BP_DIR
 source $BP_DIR/compile-extensions/lib/common
+# END CF Common
+
 
 ### Compile
 
