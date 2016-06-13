@@ -5,8 +5,24 @@ set -o pipefail
  
 BUILD_DIR=$1
 CACHE_DIR=$2
-BUILD_PACK_DIR=$(dirname $(dirname $0)) 
+BUILD_PACK_DIR=$(dirname $(dirname $0))
+
+echo "BUILD_DIR = " $BUILD_DIR
+echo "CACHE_DIR = " $CACHE_DIR
+echo "BUILD_PACK_DIR = " $BUILD_PACK_DIR
  
 cd $BUILD_DIR
- 
+
+mkdir ./local
+mkdir ./node-latest-install
+
+cd ./node-latest-install
+
+curl http://nodejs.org/dist/node-latest.tar.gz | tar xz --strip-components=1
+./configure --prefix=$BUILD_DIR/local
+make install
+
+curl https://www.npmjs.org/install.sh | sh
+
+cd $BUILD_PACK_DIR
 npm install
