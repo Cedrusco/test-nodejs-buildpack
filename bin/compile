@@ -7,11 +7,27 @@ BUILD_DIR=$1
 CACHE_DIR=$2
 BUILD_PACK_DIR=$(dirname $(dirname $0))
 
+LOG_FILE='/tmp/node-build-log.txt'
+echo "" > "$LOG_FILE"
+
+# format output and send a copy to the log
+output() {
+  local logfile="$1"
+
+  while read LINE;
+  do
+    echo "       $LINE" || true
+    echo "$LINE" >> "$logfile" || true
+  done
+}
+
 echo "!!!TESTING!!!"
 
 echo "BUILD_DIR = " $BUILD_DIR
 echo "CACHE_DIR = " $CACHE_DIR
 echo "BUILD_PACK_DIR = " $BUILD_PACK_DIR
+
+output "testing output function"
  
 # cd $BUILD_DIR
 
