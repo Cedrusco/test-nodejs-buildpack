@@ -7,28 +7,41 @@ BUILD_DIR=$1
 CACHE_DIR=$2
 BUILD_PACK_DIR=$(dirname $(dirname $0))
 
-LOG_FILE='/tmp/node-build-log.txt'
-echo "" > "$LOG_FILE"
+# CF Common
+export BUILDPACK_PATH=$BUILD_PACK_DIR
+# END CF Common
+
+# Load some convenience functions like status(), echo(), and indent()
+source $BUILD_PACK_DIR/bin/common.sh
+
+# Fix leak
+status "Resetting git environment"
+unset GIT_DIR
+
+# LOG_FILE='/tmp/node-build-log.txt'
+# echo "" > "$LOG_FILE"
 
 # format output and send a copy to the log
-output() {
-  local logfile="$1"
+# output() {
+#   local logfile="$1"
 
-  while read LINE;
-  do
-    echo "       $LINE" || true
-    echo "$LINE" >> "$logfile" || true
-  done
-}
+#   while read LINE;
+#   do
+#     echo "       $LINE" || true
+#     echo "$LINE" >> "$logfile" || true
+#   done
+# }
 
 echo "!!!TESTING!!!"
+status "TESTING STATUS"
 
 echo "BUILD_DIR = " $BUILD_DIR
 echo "CACHE_DIR = " $CACHE_DIR
 echo "BUILD_PACK_DIR = " $BUILD_PACK_DIR
+status "status BUILD_DIR = " $BUILD_DIR
+echo "status CACHE_DIR = " $CACHE_DIR
+echo "status BUILD_PACK_DIR = " $BUILD_PACK_DIR
 
-output "testing output function"
- 
 # cd $BUILD_DIR
 
 # mkdir local
